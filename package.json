@@ -1,0 +1,28 @@
+{
+  "name": "time_log",
+  "version": "1.0.0",
+  "description": "simple log for day routines.",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "express": "^4.14.0"
+  },
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trans-sundance/TimeLog.git"
+  },
+  "keywords": [
+    "log"
+  ],
+  "author": "trans.sundance",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trans-sundance/TimeLog/issues"
+  },
+  "homepage": "https://github.com/trans-sundance/TimeLog#readme"
+}

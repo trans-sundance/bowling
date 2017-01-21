@@ -1,6 +1,8 @@
 /*jshint esversion: 6 */
+const setting = require('../setting');
 const sequelize = require('sequelize');
-const config = require('../config/environment.js');
+const config = require(setting.ROOT_PATH + '/config/environment.js');
+
 const sqlId = config.mysql.username;
 const sqlPassword = config.mysql.password;
 const dbName = config.mysql.database;

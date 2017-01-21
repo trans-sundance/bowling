@@ -8,8 +8,10 @@ router.route('/plans/:userId')
 .get(controller.default);
 
 router.route('/users/:userId')
-.get(controller.getUser);
+.get(controller.getAllUser);
 
+router.route('/users/setUser/:id')
+.get(controller.insertUser);
 // router.route()
 // .get();
 

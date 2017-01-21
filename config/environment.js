@@ -4,8 +4,8 @@ const environments = {
   development: {
     mysql: {
       username: 'root',
-      password: 'root',
-      database: ''
+      password: 'Pride23',
+      database: 'testDB'
     }
   },
 
@@ -22,6 +22,7 @@ const environments = {
   }
 };
 
-const nodeEnv = process.env.NODE_ENV || 'development';
+const nodeEnv = 'development';
+process.env.NODE_ENV = 'development'; // 환경 세팅
 
 module.exports = environments[nodeEnv];

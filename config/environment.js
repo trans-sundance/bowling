@@ -3,8 +3,8 @@ const setting = require('../setting');
 const environments = {
   development: {
     mysql: {
-      username: 'root',
-      password: 'Pride23',
+      username: 'test',
+      password: 'xptmxmfkslRks!',
       database: 'testDB'
     }
   },

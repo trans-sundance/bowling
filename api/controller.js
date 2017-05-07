@@ -1,6 +1,8 @@
+'use strict';
+/*jshint node:true */
 /*jshint esversion: 6 */
 // api controller
-const controller = {};
+// var controller = {};
 const model = require('../model/model');
 
 /**
@@ -13,9 +15,24 @@ function idAndPasswordValidation (id, password) {
   return false;
 }
 
-controller.default = (req,res) => {
-  console.log('sth default action');
-  res.send('');
+const controller = {
+  setUser : function (req,res) {
+    const id = req.params.id;
+    const pw = req.params.password;
+
+    // id validation
+    // pw validation
+    // set id, password set into mysql db
+  },
+
+  getUser : (req,res) => {
+    let user = model.user.findOne({
+      where:{name:req.params.name}
+    });
+
+    res.status(200).json(user);
+  }
+
 };
 
 controller.setUser = (req,res) => {
@@ -28,10 +45,38 @@ controller.setUser = (req,res) => {
 
 };
 
-// under this line, that is only for test
-controller.getAllUser = (req,res) => {
+controller.getUser = (req,res) => {
+  let user = model.user.findOne({
+    where:{name:req.params.name}
+  });
+
+  res.status(200).json(user);
+};
+
+controller.getAllUserAsync = () => {
+  return new Promise(function(resolved, rejected){
+    model.user.findAll()
+    .then(
+      (ret)=>{
+        resolved(ret);
+      },
+      (ret)=>{
+        rejected(ret);
+      }
+    );
+  });
+};
+
+controller.getAllUserCallback = (callback) => {
   model.user.findAll()
-  .then(users => res.json(users));
+  .then(
+    (result)=>{
+      callback(result);
+    },
+    ()=>{
+      callback({res:'fail'});
+    }
+  );
 };
 
 controller.insertUser = (req,res) => {

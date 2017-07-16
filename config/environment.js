@@ -4,7 +4,7 @@ const environments = {
   development: {
     mysql: {
       username: 'test',
-      password: 'xptmxmfkslRks!',
+      password: 'test',
       database: 'testDB'
     }
   },

@@ -1,9 +1,17 @@
-/*jshint esversion: 6 */
+/* jshint esversion: 6 */
 const seq = require('./sequelize');
 const Seq = require('sequelize');
 const user = seq.define('user', {
   name : Seq.STRING,
-  password : Seq.STRING,
+  password : {
+    type  : Seq.STRING,
+    set   : function(value) {
+      this.setDataValue('password', value);
+    },
+    validate  : {
+      isInt : true
+    }
+  },
   total_point : Seq.STRING
 });
 

@@ -10,6 +10,11 @@ const util = require(setting.ROOT_PATH + '/util/util');
 
 app.use('/api', api);
 app.use('/', router);
+app.use('/static', express.static(__dirname + '/public'));
+app.set('views', __dirname + '/view');
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
+
 app.listen(setting.SERVER_PORT, () => {
   util.devLogger('Node server started.\n listening port ' + setting.SERVER_PORT + '... ');
   dbsync();

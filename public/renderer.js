@@ -21,7 +21,7 @@ function Renderer() {
 			var stroke = parseInt($('#stroke_input').val());
 			var obj = clickFunction(stroke);
 
-			if (obj.isFinished()) {
+			if (obj.isFinished) {
 				console.log('game fin');
 				$(this).off('click');
 			} else {

@@ -1,0 +1,56 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+  table, th, td {
+    border: 1px solid black;
+  }
+  </style>
+  <!-- jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  
+  <script src="static/controller.js"></script>
+  <script src="static/game.js"></script>
+  <script src="static/model.js"></script>
+  <script src="static/monitor.js"></script>
+  <script src="static/player.js"></script>
+  <script src="static/renderer.js"></script>
+  <script src="static/service.js"></script>
+
+</head>
+<body>
+  <div>
+    <h2 id="frame_count">frame count : <%= frameIndex+1%></h2>
+    <h2 id="stroke_count">stroke count : <%= strokeIndex+1%></h2>
+    <h2 id="score">score : <%= totalScore%> </h2>
+
+    <table>
+    <tr>
+      <input id="stroke_input" placeholder="" value="1"></input>
+      <button id="stroke_button">click</button>
+    </tr>
+    </table>
+
+    <table id="score_table" width="100%">
+      <tr height="20">
+        <% for(var i=0;i<9;i++) { %>
+        <td id="score_<%= i%>" colspan="2">
+          <%= scoreList[i] %>
+        </td>
+        <% } %>
+        <td id="score_9" colspan="3" >
+          <%= scoreList[9] %>
+        </td>
+      </tr>
+      <tr height="20">
+        <% for(var i=0;i<9;i++) { %>
+        <td id="stroke_<%= 2*i%>"><%= strokeList[2*i] %></td>
+        <td id="stroke_<%= 2*i+1%>"><%= strokeList[2*i+1] %></td>
+        <% } %>
+        <td id="stroke_18"><%= strokeList[18] %></td>
+        <td id="stroke_19"><%= strokeList[19] %></td>
+        <td id="stroke_20"><%= strokeList[20] %></td>
+      </tr>
+    </table>
+</body>
+</html>

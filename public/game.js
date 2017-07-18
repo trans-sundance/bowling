@@ -10,48 +10,42 @@ function Game(model) {
 			score:0
 		};
 
-		var strokeIndex = gameModel.getStrokeIndex();
-		var strokeList = gameModel.getStrokeList();
-		var frameIndex = gameModel.getFrameIndex();
-		var scoreList = gameModel.getScoreList();
-		var score = 0;
 
-        if (frameIndex == 9) { // final frame
-            gameModel.insertStrokeList(stroke);
-        } else if (stroke == 10 && parseInt(strokeIndex % 2) === 0) { // strike
-            gameModel.insertStrokeList(10);
+		var currentStrokeIndex = gameModel.getStrokeIndex();
+		var currentFrameIndex = gameModel.getFrameIndex();
+		var score = gameModel.getCurrentScore();
+
+		// check stroke index & frame index
+		gameModel.insertStrokeList(stroke);
+        if (stroke == 10 && parseInt(currentStrokeIndex % 2) === 0) { // strike
             gameModel.insertStrokeList(0);
             gameModel.increasStrokeIndex();
             gameModel.increseFrameIndex();
-        } else if (parseInt(strokeIndex % 2) === 1) { // even index
-            gameModel.insertStrokeList(stroke);
+        } else if (parseInt(currentStrokeIndex % 2) === 1) { // even index
             gameModel.increseFrameIndex();
-        } else {
-            gameModel.insertStrokeList(stroke);
         }
-        gameModel.increasStrokeIndex();
+		gameModel.increasStrokeIndex();
 
-		if (checkEndgame()) {
-			returnObject.isFinished = gameModel.toggleGame().getIsFinished();
-
-		} else {
-			if (parseInt(strokeIndex % 2) === 0) {
-				score = calculateScoreByFrameIndex(frameIndex, strokeList, scoreList);
-				gameModel.insertScoreList(score);
-				gameModel.updateCurrentScore(score);
-				gameModel.increseFrameIndex();
-			}
-			gameModel.updateFrameIndex(frameIndex);
-			gameModel.updateStrokeIndex(strokeIndex);
+		// calculate score
+		if (currentStrokeIndex !== 0 && parseInt(currentStrokeIndex % 2) === 1) {
+			score = calculateScoreByFrameIndex(currentFrameIndex, gameModel.getStrokeList(), gameModel.getScoreList());
+			gameModel.insertScoreList(score);
+			gameModel.updateCurrentScore(score);
 		}
 
-		returnObject.strokeIndex = strokeIndex;
-		returnObject.frameIndex = frameIndex;
+		returnObject.strokeIndex = currentStrokeIndex;
+		returnObject.frameIndex = currentFrameIndex;
 		returnObject.stroke = stroke;
 		returnObject.score = score;
 
-		console.log(strokeIndex, strokeList);
-		console.log(frameIndex, scoreList);
+		console.log('currentStrokeIndex', currentStrokeIndex);
+		console.log('currentFrameIndex', currentFrameIndex);
+		console.log('stroke', stroke);
+		console.log('score', score);
+
+		if (checkEndgame()) {
+			returnObject.isFinished = gameModel.toggleGame().getIsFinished();
+		}
 
 		return returnObject;
     }
@@ -70,51 +64,31 @@ function Game(model) {
             console.log('finish type 2');
 			return true;
         } else {
+			// console.log('false');
 			return false;
 		}
     }
 
     function calculateScoreByFrameIndex(frameIndex, strokeList, scoreList) {
-        var ret = 0;
-        var i = frameIndex;
-
-        if (i === 0) { // first frame
-            ret = strokeList[2 * i] + strokeList[2 * i + 1];
-        } else if (i == 9) { // final frame
-            ret = strokeList[18] + strokeList[19] + strokeList[20];
+        var score = 0;
+        if (frameIndex === 0) { // first frame
+            score = strokeList[0] + strokeList[1];
+        } else if (frameIndex == 9) { // final frame
+            score = strokeList[18] + strokeList[19] + strokeList[20];
         } else {
-            if (strokeList[2 * (i - 1)] == 10) { // strike
-                ret = scoreList[i - 1] + 2 * strokeList[2 * i] + 2 * strokeList[2 * i + 1];
+            if (strokeList[2 * (frameIndex - 1)] == 10) { // strike
+                score = scoreList[frameIndex - 1] + 2 * strokeList[2 * frameIndex] + 2 * strokeList[2 * frameIndex + 1];
                 console.log("# strike");
-            } else if (strokeList[2 * (i - 1)] + strokeList[2 * (i - 1) + 1] == 10) { // spare
-                ret = scoreList[i - 1] + 2 * strokeList[2 * i] + strokeList[2 * i + 1];
+            } else if (strokeList[2 * (frameIndex - 1)] + strokeList[2 * (frameIndex - 1) + 1] == 10) { // spare
+                score = scoreList[frameIndex - 1] + 2 * strokeList[2 * frameIndex] + strokeList[2 * frameIndex + 1];
                 console.log("# spare");
             } else {
-                ret = scoreList[i - 1] + strokeList[2 * i] + strokeList[2 * i + 1];
+                score = scoreList[frameIndex - 1] + strokeList[2 * frameIndex] + strokeList[2 * frameIndex + 1];
             }
         }
-        // scoreList.push(ret);
-        return ret;
+		console.log('score : ', score);
+        return score;
     }
-
-	function test() {
-		var strokeIndex = gameModel.getStrokeIndex();
-		var strokeList = gameModel.getStrokeList();
-		var frameIndex = gameModel.getFrameIndex();
-		var scoreList = gameModel.getScoreList();
-
-		updateStroke(strokeIndex, strokeList);
-		gameModel.increasStrokeIndex();
-
-		if (parseInt(strokeIndex % 2) === 0) {
-			var score = game.calculateScoreByFrameIndex(frameIndex, strokeList, scoreList);
-			gameModel.insertScoreList(score);
-			updateScore(frameIndex, score);
-			gameModel.increseFrameIndex();
-		}
-		gameModel.updateFrameIndex(frameIndex);
-		gameModel.updateStrokeIndex(strokeIndex);
-	}
 
     function checkStrike() {
         return false;

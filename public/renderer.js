@@ -7,7 +7,6 @@ function Renderer() {
 	function updateScore(index, score) {
 		$('#score_' + index).html(score);
 		$('#frame_count').html('frame count : ' + (index+1));
-		console.log(index, score);
 	}
 
 	function updateStroke(index, stroke) {

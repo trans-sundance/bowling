@@ -44,7 +44,7 @@ function Game(model) {
 		console.log('score', score);
 
 		if (checkEndgame()) {
-			returnObject.isFinished = gameModel.toggleGame().getIsFinished();
+			returnObject.isFinished = gameModel.toggleGame();
 		}
 
 		return returnObject;

@@ -66,6 +66,7 @@ function GameModel () {
 	}
 	function toggleGame() {
 		isFinished = !isFinished;
+		return isFinished;
 	}
 
 	return {

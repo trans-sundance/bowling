@@ -6,7 +6,7 @@ const seq = require('./sequelize');
 function dbsync () {
   seq.sync({force: false})
      .then(() => {
-       console.log('Databases sync');
+       console.log('Databases sync complete.');
      });
 }
 

@@ -15,7 +15,7 @@ function Renderer() {
 		// console.log(index, strokeList);
 	}
 
-	function setOnclickEvent(clickFunction) {
+	function init(clickFunction) {
 		$("#stroke_button").on('click', function() {
 			var stroke = parseInt($('#stroke_input').val());
 			var obj = clickFunction(stroke);
@@ -32,7 +32,7 @@ function Renderer() {
 	}
 
 	return {
-		setOnclickEvent : setOnclickEvent,
+		init : init,
 		updateStroke : updateStroke,
 		updateScore : updateScore
 	};

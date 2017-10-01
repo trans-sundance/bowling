@@ -4,6 +4,6 @@ $(document).ready(function() {
     var game = new Game(gameModel);
 	var renderer = new Renderer();
 
-    renderer.setOnclickEvent(game.insertStroke);
+    renderer.init(game.insertStroke);
 
 });
